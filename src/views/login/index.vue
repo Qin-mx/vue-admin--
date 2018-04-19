@@ -8,7 +8,7 @@
             </el-form-item>
             <!-- 密码 -->
             <el-form-item label="密码" prop="password">
-                <el-input type="password" v-model="loginForm.password" auto-complete="off"></el-input>
+                <el-input type="password" v-model="loginForm.password" auto-complete="off" @keyup.enter.native="handleLogin"></el-input>
             </el-form-item>
 
             <el-form-item>

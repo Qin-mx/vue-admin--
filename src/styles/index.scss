@@ -1,7 +1,12 @@
-@import './color.scss';
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+
 body, html {
   height: 100%;
-  min-width: 1200px;
+  // min-width: 1200px;
   font-size: 14px;
 }
 
@@ -20,7 +25,7 @@ html {
   box-sizing: border-box;
 }
 
-#app{
+#app {
   height: 100%;
 }
 
@@ -28,4 +33,74 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+div:focus{
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+code {
+  background: #eef1f6;
+  padding: 15px 16px;
+  margin-bottom: 20px;
+  display: block;
+  line-height: 36px;
+  font-size: 15px;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  a {
+    color: #337ab7;
+    cursor: pointer;
+    &:hover {
+      color: rgb(32, 160, 255);
+    }
+  }
+}
+//main-container全局样式
+.app-main{
+  min-height: 100%;
+}
+
+.app-container {
+  padding: 20px;
+}
+.filter-container{
+  padding-bottom: 10px;
+  .filter-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+}
+
+.components-container {
+  padding: 30px 50px;
+  position: relative;
+}
+
+.pagination-container {
+  margin-top: 30px;
 }

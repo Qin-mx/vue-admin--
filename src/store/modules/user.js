@@ -50,7 +50,7 @@ const user = {
           .then(res => {
             const data = res.data
             commit('SET_TOKEN', data.token)
-            setToken(res, data.token) // 存到本地
+            setToken(data.token) // 存到本地
             resolve()
           })
           .catch(error => {
@@ -70,14 +70,14 @@ const user = {
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
           commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
+          resolve()
         }).catch(error => {
           reject(error)
         })
       })
     },
     // 登出
-    Logout({ commit }, state) {
+    Logout({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(res => {
           commit('SET_TOKEN', '')

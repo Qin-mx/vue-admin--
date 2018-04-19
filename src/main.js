@@ -5,12 +5,16 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import 'normalize.css/normalize.css'
 import '@/styles/index.scss' // 全局安装 css
 import './mock' // simulation data
 
 import ElementUI from 'element-ui'// 引入element组件
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
+
+import '@/icons' // icon
+import '@/permission' // permission control
 
 Vue.config.productionTip = false
 
