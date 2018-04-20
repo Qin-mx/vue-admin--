@@ -46,7 +46,38 @@ export const constantRouterMap = [
     }]
   },
   {
+    path: '/tables',
+    name: 'tables',
+    component: Layout,
+    redirect: '/tables/index',
+    meta: {
+      title: '表格',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'complex',
+        component: () => import('@/views/pages/Tables/index'),
+        meta: { title: '综合table' }
+      },
+      {
+        path: 'Dynamic',
+        name: 'DynamicTable',
+        component: () => import('@/views/pages/Tables/DynamicTable'),
+        meta: { title: '动态table' }
+      },
+      {
+        path: 'drag',
+        name: 'DragTable',
+        component: () => import('@/views/pages/Tables/DragTable'),
+        meta: { title: '拖拽table' }
+      }
+    ]
+  },
+  {
     path: '/echart',
+    name: 'echart',
     redirect: '/echart/bar',
     component: Layout,
     meta: { title: '图表', icon: 'chart' },
