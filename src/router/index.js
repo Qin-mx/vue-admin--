@@ -27,8 +27,7 @@ export const constantRouterMap = [
     path: '',
     name: '首页',
     component: Layout,
-    redirect: '/index',
-    // redirect: 'noredirect',
+    redirect: 'index',
     children: [{
       path: 'index',
       name: 'dashboard',
@@ -45,6 +44,32 @@ export const constantRouterMap = [
       component: () => import('@/views/pages/form/index'),
       meta: { title: '表单', icon: 'form' }
     }]
+  },
+  {
+    path: '/echart',
+    redirect: '/echart/bar',
+    component: Layout,
+    meta: { title: '图表', icon: 'chart' },
+    children: [
+      {
+        path: 'bar',
+        name: 'BarEachart',
+        component: () => import('@/views/pages/ECharts/BarChart'),
+        meta: { title: '柱形' }
+      },
+      {
+        path: 'line',
+        name: 'LineChart',
+        component: () => import('@/views/pages/ECharts/LineChart'),
+        meta: { title: '折线' }
+      },
+      {
+        path: 'mix',
+        name: 'MixChart',
+        component: () => import('@/views/pages/ECharts/MixChart'),
+        meta: { title: '可拖动' }
+      }
+    ]
   }
 ]
 export default new Router({
