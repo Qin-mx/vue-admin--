@@ -31,10 +31,10 @@ export default {
   transition: color 0.5s 0.25s;
   overflow: hidden;
   position: relative;
-display: inline-block;
-    line-height: 1;
-        outline: none;
-    text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  outline: none;
+  text-decoration: none;
 }
 
 .link--mallki:hover {

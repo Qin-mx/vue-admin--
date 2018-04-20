@@ -127,7 +127,7 @@ export default {
 
 .pan-info p a:hover {
 	background: rgba(255, 255, 255, 0.5);
-}
+} 
 
 .pan-item:hover .pan-thumb {
 	transform: rotate(-110deg);
