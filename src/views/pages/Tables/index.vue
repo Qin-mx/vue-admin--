@@ -2,21 +2,22 @@
     <div class="app-container">
             <div class="filter-container">
                 <el-col :span="4">
-                    <el-input @keyup.enter.native="handleFilter" class="filter-item" placeholder="查询标题" v-model="listQuery.title"></el-input>
+                    <el-input @keyup.enter.native="handleFilter"  class="filter-item" placeholder="查询标题" v-model="listQuery.title"></el-input>
                 </el-col>
-                <el-col :span="3" offset="1">
-                     <el-select clearable v-model="listQuery.status" placeholder="状态">
-                        <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item">
+                <el-col :span="3" :offset="1" @change='handleFilter'>
+                     <el-select clearable v-model="listQuery.importance" placeholder="重要性">
+                        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="5" :offset="1" style="width:200px">
                     <el-button type="primary" icon="el-icon-search"  @click="handleFilter">搜索</el-button>
-                     <el-button type="primary" icon="el-icon-edit">添加</el-button>
+                     <el-button type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
                 </el-col>
+                 <el-checkbox class="filter-item" @change="tableKey=tableKey+1" v-model="showReviewer" >审核人</el-checkbox>
             </div>
 
-    <el-table :data="list" v-loading="listLoading" element-loading-text="给我一点时间" border fit highlight-current-row
+    <el-table :data="list" :key='tableKey' v-loading="listLoading"  border fit highlight-current-row
       style="width: 100%">
        <el-table-column align="center" label="ID" width="65">
             <template slot-scope="scope">
@@ -32,7 +33,7 @@
 
         <el-table-column min-width="300px" label="标题">
             <template slot-scope="scope">
-            <span>{{scope.row.title}}</span>
+            <span class="link-type" @click="handleEdit(scope.row)">{{scope.row.title}}</span>
             </template>
         </el-table-column>
 
@@ -40,6 +41,12 @@
             <template slot-scope="scope">
             <span>{{scope.row.author}}</span>
             </template>
+        </el-table-column>
+
+        <el-table-column width="110px" v-if='showReviewer' align="center" label="审核人">
+          <template slot-scope="scope">
+            <span style='color:red;'>{{scope.row.reviewer}}</span>
+          </template>
         </el-table-column>
 
         <el-table-column width="100px" label="重要性">
@@ -55,13 +62,13 @@
         </el-table-column> 
       <el-table-column align="center" label="阅读数" width="95">
         <template slot-scope="scope">
-          <span v-if="scope.row.pageviews" class="link-type">{{scope.row.pageviews}}</span>
+          <span v-if="scope.row.pageviews" >{{scope.row.pageviews}}</span>
           <span v-else>0</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini">编辑</el-button>
+          <el-button type="primary" size="mini" @click.native="handleEdit(scope.row)">编辑</el-button>
           <el-button v-if="scope.row.status != 'published'" size="mini" type="success" @click.native="hadnleModifyStatus(scope.row,'published')">发布
           </el-button>
           <el-button size="mini" v-if="scope.row.status!='draft'" @click.native="hadnleModifyStatus(scope.row,'draft')">草稿
@@ -73,21 +80,52 @@
     </el-table>   
 
     <div class="pagination-container">
-      <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page.sync="listQuery.page"
-      :page-sizes="[20,40,60]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="listQuery.page"
+        :page-sizes="[20,40,60]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+        </el-pagination>
     </div>
+    <!-- 打开编辑页面 -->
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+        <el-form :model="temp" :rules="rules" ref="ruleForm" :label-width="formLabelWidth" class="demo-ruleForm">
+
+            <el-form-item label="标题" prop="title">
+              <el-input type="text" v-model="temp.title"></el-input>
+            </el-form-item>
+
+            <el-form-item label="状态">
+              <el-select  v-model="temp.status" placeholder="选择状态">
+                <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
+                </el-option>
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="重要性">
+              <el-rate
+              style="margin-top:10px;"
+                v-model="temp.importance"
+                :colors="['#99A9BF', '#F7BA2A', '#FF9900']" 
+                :max="3">
+              </el-rate>
+            </el-form-item>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">确 定</el-button>
+          <el-button v-else type="primary" @click="updateData">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { fetchList, createArticle, updateArticle } from '@/api/article'
 
 export default {
   name: 'complex',
@@ -96,6 +134,7 @@ export default {
   },
   data() {
     return {
+      tableKey: 0,
       list: null,
       total: null,
       listLoading: true,
@@ -107,7 +146,25 @@ export default {
         type: undefined,
         sort: '+id'
       },
-      statusOptions: ['published', 'draft', 'deleted']
+      importanceOptions: [1, 2, 3],
+      statusOptions: ['published', 'draft', 'deleted'],
+      textMap: {
+        update: '编辑',
+        create: '创建'
+      },
+      dialogStatus: '',
+      dialogFormVisible: false,
+      temp: {
+        id: undefined,
+        title: '',
+        importance: null,
+        status: ''
+      },
+      rules: {
+        title: [{ required: true, message: '标题不能为空', trigger: 'blur' }]
+      },
+      formLabelWidth: '120px',
+      showReviewer: false
     }
   },
   filters: {
@@ -130,24 +187,110 @@ export default {
       })
     },
     handleFilter() {
-
+      this.listQuery.page = 1
+      this.getList()
     },
-    hadnleModifyStatus (row,status){
+    hadnleModifyStatus(row, status) {
       this.$message({
         type: 'success',
         message: '操作成功'
       })
 
-      row.status = status;
+      row.status = status
     },
     handleSizeChange(val) {
-        this.listQuery.limit = val
-        this.getList()
+      this.listQuery.limit = val
+      this.getList()
     },
     handleCurrentChange(val) {
-         this.listQuery.page = val
-        this.getList()
+      this.listQuery.page = val
+      this.getList()
+    },
+    // 编辑
+    handleEdit(val) {
+      this.dialogFormVisible = true
+      this.dialogStatus = 'update'
+
+      this.temp = Object.assign({}, val) // 这样就不会共用同一个对象
+      this.$nextTick(() => {
+        this.$refs['ruleForm'].clearValidate()
+      })
+    },
+    updateData() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.dialogFormVisible = false
+          const tempData = Object.assign({}, this.temp)
+          updateArticle(tempData).then(() => {
+            for (const v of this.list) {
+              if (v.id === this.temp.id) {
+                const index = this.list.indexOf(v)
+                this.list.splice(index, 1, this.temp)
+                break
+              }
+            }
+            this.dialogFormVisible = false
+            this.$message({
+              message: '更新成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }
+      })
+    },
+    // 创建
+    handleCreate() {
+      this.resetTemp()
+      this.dialogFormVisible = true
+      this.dialogStatus = 'create'
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
+    createData() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          this.temp.id = parseInt(Math.random() * 100) + 101 // 模拟数据id
+          this.temp.author = 'admin' // 因为需要作者
+          this.temp.timestamp = new Date()
+          createArticle(this.temp).then(res => {
+            this.list.unshift(this.temp) // 添加到数组的最前面
+            this.dialogFormVisible = false
+            this.$message({
+              message: '创建成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }
+      })
+    },
+    // 重置
+    resetTemp() {
+      this.temp = {
+        id: undefined,
+        title: '',
+        importance: null,
+        status: ''
+      }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.demo-ruleForm{
+  width: 400px;
+}
+.filter-item{
+  line-height: 36px;
+}
+</style>
+
+<style lang="scss">
+  label{
+    font-weight:700
+  }
+</style>
+
