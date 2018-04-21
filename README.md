@@ -1,6 +1,10 @@
 # vue-admin1
 
-> 简易的vue模版
+> 简易的vue模版(仿制的[PanJiaChen](https://github.com/PanJiaChen/vue-element-admin))
+
+> 推荐使用([他的简易模板](https://github.com/PanJiaChen/vueAdmin-template))
+
+> [教程链接](https://segmentfault.com/a/1190000009762198#articleHeader16)
 
 ## Build Setup
 

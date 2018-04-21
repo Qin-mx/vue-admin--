@@ -15,12 +15,16 @@ Vue.use(ElementUI)
 
 import '@/icons' // icon
 import '@/permission' // permission control
-import * as filters from './filters' // 全局 filters
+import * as filters from './filters' // 全局 filters 拿到的是一个对象
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+
+// 使用剪切板插件
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 

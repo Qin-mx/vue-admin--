@@ -101,7 +101,51 @@ export const constantRouterMap = [
         meta: { title: '可拖动' }
       }
     ]
+  }, {
+    path: '/excel',
+    name: 'Excel',
+    component: Layout,
+    redirect: '/excel/export',
+    meta: {
+      title: 'Excel',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'export',
+        name: 'exportExcel',
+        component: () => import('@/views/pages/Excel/ExportExcel'),
+        meta: { title: '导出Excel' }
+      },
+      {
+        path: 'upload',
+        name: 'UploadExcel',
+        component: () => import('@/views/pages/Excel/UploadExcel'),
+        meta: { title: '上传excel' }
+      }
+    ]
+  },
+  {
+    path: '/zip',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'zip',
+      component: () => import('@/views/pages/ExportZip/index'),
+      meta: { title: 'Export Zip', icon: 'zip' }
+    }]
+  },
+  {
+    path: '/copy',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'copy',
+      component: () => import('@/views/pages/Clipboard/index'),
+      meta: { title: 'Copy', icon: 'clipboard' }
+    }]
   }
+
 ]
 export default new Router({
   // mode: 'history', // 后端支持可开
