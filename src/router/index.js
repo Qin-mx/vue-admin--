@@ -73,6 +73,19 @@ export const constantRouterMap = [
         name: 'DragTable',
         component: () => import('@/views/pages/Tables/DragTable'),
         meta: { title: '拖拽table' }
+      },
+      {
+        path: 'batch',
+        name: 'batch',
+        component: () => import('@/views/pages/Tables/BatchTable'),
+        meta: { title: '批量操作' }
+      },
+      {
+        path: 'details',
+        name: 'details',
+        hidden: true,
+        component: () => import('@/views/pages/Tables/details'),
+        meta: { title: '操作' }
       }
     ]
   },
@@ -194,6 +207,18 @@ export const constantRouterMap = [
       name: 'countTo',
       component: () => import('@/views/pages/Components/countTo'),
       meta: { title: 'countTo' }
+    },
+    {
+      path: 'FixedHead',
+      name: 'FixedHead',
+      component: () => import('@/views/pages/Components/FixedHead'),
+      meta: { title: 'FixedHead' }
+    },
+    {
+      path: 'other',
+      name: 'other',
+      component: () => import('@/views/pages/Components/other'),
+      meta: { title: 'other' }
     }]
   }
 
