@@ -23,6 +23,7 @@ import Layout from '@/views/layout/Layout'
 
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/404', component: () => import('@/views/error/404'), hidden: true },
   {
     path: '',
     name: '首页',
@@ -140,9 +141,59 @@ export const constantRouterMap = [
     component: Layout,
     children: [{
       path: 'index',
-      name: 'copy',
+      name: 'clipboard',
       component: () => import('@/views/pages/Clipboard/index'),
       meta: { title: 'Copy', icon: 'clipboard' }
+    }]
+  },
+  {
+    path: '/backtop',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'BackTop',
+      component: () => import('@/views/pages/backToTop/index'),
+      meta: { title: 'Top', icon: 'icon' }
+    }]
+  },
+  {
+    path: '/components',
+    name: 'components',
+    component: Layout,
+    redirect: '/components/tiny',
+    meta: { title: '组件', icon: 'component' },
+    children: [{
+      path: 'tiny',
+      name: 'tinymce',
+      component: () => import('@/views/pages/Components/tinymce'),
+      meta: { title: 'tinymce' }
+    }, {
+      path: 'editor',
+      name: 'editor',
+      component: () => import('@/views/pages/Components/editor'),
+      meta: { title: 'editor' }
+    }, {
+      path: 'markdown',
+      name: 'markdown',
+      component: () => import('@/views/pages/Components/Markdown'),
+      meta: { title: 'markdown' }
+    }, {
+      path: 'jsonEditor',
+      name: 'jsonEditor',
+      component: () => import('@/views/pages/Components/jsonEditor'),
+      meta: { title: 'jsonEditor' }
+    },
+    {
+      path: 'dndList',
+      name: 'dndList',
+      component: () => import('@/views/pages/Components/dndList'),
+      meta: { title: 'dndList' }
+    },
+    {
+      path: 'countTo',
+      name: 'countTo',
+      component: () => import('@/views/pages/Components/countTo'),
+      meta: { title: 'countTo' }
     }]
   }
 

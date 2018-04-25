@@ -48,9 +48,11 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password)
           .then(res => {
+            console.log(res)
             const data = res.data
             commit('SET_TOKEN', data.token)
             setToken(data.token) // 存到本地
+            console.log(getToken())
             resolve()
           })
           .catch(error => {

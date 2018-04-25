@@ -45,6 +45,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
+    // 处理vue富文本编辑的图片缩放
+    new webpack.ProvidePlugin({
+      'window.Quill': 'quill'
+    }),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),

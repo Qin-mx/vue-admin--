@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  name: 'copy',
+  name: 'clipboard',
   data() {
     return {
       inputData: 'https://jingyan.baidu.com/article/48a42057156888a9242504fd.html'

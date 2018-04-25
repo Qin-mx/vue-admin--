@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import { isvalidUsername } from 'utils/validate'
+    import { isvalidUsername } from '@/utils/validate'
     export default {
       name: 'login',
       data() {
@@ -65,6 +65,7 @@
               this.loading = true
               this.$store.dispatch('LoginByUsername', this.loginForm)
                 .then(res => {
+                  console.log(res)
                   this.loading = false
                   this.$router.push({ path: '/' })
                 })
