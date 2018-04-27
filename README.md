@@ -7,6 +7,9 @@
 > [教程链接](https://segmentfault.com/a/1190000009762198#articleHeader16)
 
 > 参考学习地址[教程链接](https://panjiachen.github.io/vue-element-admin-site/#/zh-cn/rich-editor)
+
+> 翻译只实现了列表的展示
+
 ## Build Setup
 
 ``` bash

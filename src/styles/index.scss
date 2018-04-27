@@ -129,11 +129,15 @@ code {
 //main-container全局样式
 .app-container {
   padding: 20px;
+  //新增
+  margin: 50px 0 0;
 }
 
 .components-container {
   margin: 30px 50px;
   position: relative;
+  //新增
+  margin-top: 80px;
 }
 
 .pagination-container {

@@ -12,9 +12,16 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') { // 如果当前在登录页面，就跳转到首页
       next({ path: '/' })
     } else {
-      if (store.getters.roles.length === 0) {
+      // 如果没有数据会进来拉去
+      if (store.getters.roles.length === 0) { // 判断是否拉取完信息
         store.dispatch('GetUserInfo').then(res => { // 拉取用户信息
-          next()
+          const roles = res.data.roles
+
+          store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+            router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+            console.log(router)
+            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,设置替换：确定，这样导航不会留下历史记录
+          })
         }).catch(() => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('验证失败,请重新登录')

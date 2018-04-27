@@ -1,3 +1,4 @@
+// import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
 import { Message } from 'element-ui'
@@ -15,6 +16,11 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['X-Token'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
   }
+
+  // if (Vue.$i18n.locale) { // 处理语言
+  //   config.headers['Accept-Language'] = (Vue.$i18n.locale === 'en' ? 'en' : 'zh')
+  // }
+
   return config
 }, error => {
   // Do something with request error

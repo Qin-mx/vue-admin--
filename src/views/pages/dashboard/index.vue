@@ -45,8 +45,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import adminDashboard from './admin'
-import editorDashboard from './editor'
+// import adminDashboard from './admin'
+// import editorDashboard from './editor'
 
 import PanlGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
@@ -76,8 +76,8 @@ const lineChartData = {
 export default {
   name: 'dashboard',
   components: {
-    adminDashboard,
-    editorDashboard,
+    // adminDashboard,
+    // editorDashboard,
     PanlGroup,
     LineChart,
     RaddarChart,
@@ -117,6 +117,7 @@ export default {
     line-height: 46px;
   }
   &-editor-container{
+    margin-top: 50px;
     padding: 30px;
     background: #f0f2f5;
   }

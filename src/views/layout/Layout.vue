@@ -38,4 +38,7 @@ export default {
 .page-component__scroll{
   height: 100%;
 }
+.sidebar-container{
+  top: 50px;
+}
 </style>

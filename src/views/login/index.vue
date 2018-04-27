@@ -1,27 +1,39 @@
 <template>
     <div class="login-contaier">
+       
         <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form">
-            <h3>{{context}}</h3>
+            <h3>{{$t('login.title')}}</h3>
+            <set-language class="set-language"></set-language>
             <!-- 用户名 -->
-            <el-form-item label="用户名" prop="username">
+            <el-form-item :label="$t('login.userName')" prop="username">
                 <el-input type="text" v-model="loginForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item label="密码" prop="password">
+            <el-form-item :label="$t('login.password')" prop="password">
                 <el-input type="password" v-model="loginForm.password" auto-complete="off" @keyup.enter.native="handleLogin"></el-input>
             </el-form-item>
 
+            <el-form-item >
+                <p style="margin:0">{{$t('login.tip')}}</p>
+            </el-form-item>
+
             <el-form-item>
-                <el-button type="primary" :loading="loading" @click.native.prevent="handleLogin">登录</el-button>
+                <el-button type="primary" :loading="loading" @click.native.prevent="handleLogin" class="loginWidth">{{$t('login.login')}}</el-button>
             </el-form-item>
         </el-form>
+
+         
     </div>
 </template>
 
 <script>
     import { isvalidUsername } from '@/utils/validate'
+    import SetLanguage from '@/components/LangSelect'
     export default {
       name: 'login',
+      components: {
+        SetLanguage
+      },
       data() {
         const validateUsername = (rule, value, callback) => {
           if (!isvalidUsername(value)) {
@@ -38,7 +50,7 @@
           }
         }
         return {
-          context: '后台登录系统',
+          // context: `<div>` + this.$t('login.title') + `</div>`,
           loading: false,
           loginForm: {
             username: '',
@@ -98,6 +110,14 @@ $bgcolor: #2d3a4b;
     border-radius: 3px;
     top: 50%;
     transform: translateY(-50%);
+  }
+  .set-language{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+  }
+  .loginWidth{
+    width: 100%;
   }
 }
 </style>
