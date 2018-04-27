@@ -4,7 +4,9 @@ export default {
     login: '登录',
     userName: '用户名',
     password: '密码',
-    tip: 'tips: admin || editor 密码大于6位'
+    tip: 'tips: admin || editor 密码大于6位',
+    ErrorTips: '请输入正确的用户名',
+    ErrorPassword: '密码长度不能小于6位数'
   },
   routers: {
     dashboard: '首页',
@@ -35,5 +37,44 @@ export default {
     countTo: 'countTo',
     FixedHead: 'FixedHead',
     other: 'other'
+  },
+  permission: {
+    roles: '权限'
+  },
+  form: {
+    Activityname: '活动名称',
+    Zoneaction: '活动区域',
+    SelectAction: '请选择活动区域',
+    Activitytime: '活动时间',
+    SelectionData: '选择日期',
+    SelectionTime: '选择时间',
+    Immediate: '即时配送',
+    Activitynature: '活动性质',
+    Resources: '特殊资源',
+    Formactivity: '活动形式',
+    Creation: '立即创建',
+    Reset: '重置',
+    RegionalOne: '区域一',
+    Regionaltwo: '区域二'
+  },
+  table: {
+    Date: '时间',
+    Title: '标题',
+    Author: '作者',
+    Importance: '重要性',
+    Readings: '阅读数',
+    Status: '状态',
+    Operation: '操作',
+    Search: '搜索',
+    AddTo: '添加',
+    Auditor: '审核人',
+    Edit: '编辑',
+    Release: '发布',
+    Remove: '删除',
+    Draft: '草稿',
+    SearchTitle: '查询标题',
+    BatchRemove: '批量删除',
+    Sure: '确定',
+    Cancel: '取消'
   }
 }

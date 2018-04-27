@@ -2,19 +2,19 @@
     <div class="app-container">
             <div class="filter-container">
                 <el-col :span="4">
-                    <el-input @keyup.enter.native="handleFilter"  class="filter-item" placeholder="查询标题" v-model="listQuery.title"></el-input>
+                    <el-input @keyup.enter.native="handleFilter"  class="filter-item" :placeholder="$t('table.SearchTitle')" v-model="listQuery.title"></el-input>
                 </el-col>
                 <el-col :span="3" :offset="1" @change='handleFilter'>
-                     <el-select clearable v-model="listQuery.importance" placeholder="重要性">
+                     <el-select clearable v-model="listQuery.importance" :placeholder="$t('table.Importance')">
                         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
                         </el-option>
                     </el-select>
                 </el-col>
-                <el-col :span="5" :offset="1" style="width:200px">
-                    <el-button type="primary" icon="el-icon-search"  @click="handleFilter">搜索</el-button>
-                     <el-button type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
+                <el-col :span="5" :offset="1" style="width:300px">
+                    <el-button type="primary" icon="el-icon-search"  @click="handleFilter">{{$t('table.Search')}}</el-button>
+                     <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{$t('table.AddTo')}}</el-button>
                 </el-col>
-                 <el-checkbox class="filter-item" @change="tableKey=tableKey+1" v-model="showReviewer" >审核人</el-checkbox>
+                 <el-checkbox class="filter-item" @change="tableKey=tableKey+1" v-model="showReviewer" >{{$t('table.Auditor')}}</el-checkbox>
             </div>
 
     <el-table :data="list" :key='tableKey' v-loading="listLoading"  border fit highlight-current-row
@@ -25,55 +25,55 @@
             </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="时间">
+        <el-table-column width="180px" align="center" :label="$t('table.Date')">
             <template slot-scope="scope">
             <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
             </template>
         </el-table-column>
 
-        <el-table-column min-width="300px" label="标题">
+        <el-table-column min-width="300px" :label="$t('table.Title')">
             <template slot-scope="scope">
             <span class="link-type" @click="handleEdit(scope.row)">{{scope.row.title}}</span>
             </template>
         </el-table-column>
 
-        <el-table-column width="110px" align="center" label="作者">
+        <el-table-column width="110px" align="center" :label="$t('table.Author')">
             <template slot-scope="scope">
             <span>{{scope.row.author}}</span>
             </template>
         </el-table-column>
 
-        <el-table-column width="110px" v-if='showReviewer' align="center" label="审核人">
+        <el-table-column width="110px" v-if='showReviewer' align="center" :label="$t('table.Auditor')">
           <template slot-scope="scope">
             <span style='color:red;'>{{scope.row.reviewer}}</span>
           </template>
         </el-table-column>
 
-        <el-table-column width="100px" label="重要性">
+        <el-table-column width="100px" :label="$t('table.Importance')">
             <template slot-scope="scope">
             <svg-icon v-for="n in +scope.row.importance" icon-class="star" class="icon-star" :key="n"></svg-icon>
             </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="状态" width="110">
+        <el-table-column class-name="status-col" :label="$t('table.Status')" width="110">
             <template slot-scope="scope">
             <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
             </template>
         </el-table-column> 
-      <el-table-column align="center" label="阅读数" width="95">
+      <el-table-column align="center" :label="$t('table.Readings')" width="95">
         <template slot-scope="scope">
           <span v-if="scope.row.pageviews" >{{scope.row.pageviews}}</span>
           <span v-else>0</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="230" class-name="small-padding fixed-width">
+      <el-table-column align="center" :label="$t('table.Operation')" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click.native="handleEdit(scope.row)">编辑</el-button>
-          <el-button v-if="scope.row.status != 'published'" size="mini" type="success" @click.native="hadnleModifyStatus(scope.row,'published')">发布
+          <el-button type="primary" size="mini" @click.native="handleEdit(scope.row)">{{$t('table.Edit')}}</el-button>
+          <el-button v-if="scope.row.status != 'published'" size="mini" type="success" @click.native="hadnleModifyStatus(scope.row,'published')">{{$t('table.Release')}}
           </el-button>
-          <el-button size="mini" v-if="scope.row.status!='draft'" @click.native="hadnleModifyStatus(scope.row,'draft')">草稿
+          <el-button size="mini" v-if="scope.row.status!='draft'" @click.native="hadnleModifyStatus(scope.row,'draft')">{{$t('table.Draft')}}
           </el-button>
-          <el-button  v-if="scope.row.status!='deleted'" size="mini" type="danger" @click.native="hadnleModifyStatus(scope.row,'deleted')">删除
+          <el-button  v-if="scope.row.status!='deleted'" size="mini" type="danger" @click.native="hadnleModifyStatus(scope.row,'deleted')">{{$t('table.Remove')}}
           </el-button>
         </template>
       </el-table-column>

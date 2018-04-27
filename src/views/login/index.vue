@@ -2,23 +2,23 @@
     <div class="login-contaier">
        
         <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form">
-            <h3>{{$t('login.title')}}</h3>
+            <h3>{{$t('logins.title')}}</h3>
             <set-language class="set-language"></set-language>
             <!-- 用户名 -->
-            <el-form-item :label="$t('login.userName')" prop="username">
+            <el-form-item :label="$t('logins.userName')" prop="username">
                 <el-input type="text" v-model="loginForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item :label="$t('login.password')" prop="password">
+            <el-form-item :label="$t('logins.password')" prop="password">
                 <el-input type="password" v-model="loginForm.password" auto-complete="off" @keyup.enter.native="handleLogin"></el-input>
             </el-form-item>
 
             <el-form-item >
-                <p style="margin:0">{{$t('login.tip')}}</p>
+                <p style="margin:0">{{$t('logins.tip')}}</p>
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" :loading="loading" @click.native.prevent="handleLogin" class="loginWidth">{{$t('login.login')}}</el-button>
+                <el-button type="primary" :loading="loading" @click.native.prevent="handleLogin" class="loginWidth">{{$t('logins.login')}}</el-button>
             </el-form-item>
         </el-form>
 
@@ -37,14 +37,14 @@
       data() {
         const validateUsername = (rule, value, callback) => {
           if (!isvalidUsername(value)) {
-            callback(new Error('请输入正确的用户名'))
+            callback(new Error(this.$t('logins.ErrorTips')))
           } else {
             callback()
           }
         }
         const validatePassword = (rule, value, callback) => {
           if (value.length < 6) {
-            callback(new Error('密码长度不能小于6位数'))
+            callback(new Error(this.$t('logins.ErrorPassword')))
           } else {
             callback()
           }
@@ -53,8 +53,8 @@
           // context: `<div>` + this.$t('login.title') + `</div>`,
           loading: false,
           loginForm: {
-            username: '',
-            password: ''
+            username: 'admin',
+            password: '123456'
           },
           rules: {
             username: [{
@@ -77,7 +77,6 @@
               this.loading = true
               this.$store.dispatch('LoginByUsername', this.loginForm)
                 .then(res => {
-                  console.log(res)
                   this.loading = false
                   this.$router.push({ path: '/' })
                 })

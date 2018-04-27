@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-          <p>权限：<span>{{roles}}</span></p>  
+          <p>{{$t('permission.roles')}}：<span>{{roles}}</span></p>  
     </div>
 </template>
 

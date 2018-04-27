@@ -4,6 +4,7 @@
       <sidebar class="sidebar-container"></sidebar>
       <div class="main-container">
         <navbar></navbar>
+        <TagView class="tagview"></TagView>
         <app-main></app-main>
       </div>
     <!-- </el-scrollbar>   -->
@@ -12,12 +13,14 @@
 
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
+import TagView from '@/components/TagView'
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    TagView
   },
   computed: {
     sidebar() {
@@ -40,5 +43,10 @@ export default {
 }
 .sidebar-container{
   top: 50px;
+}
+.tagview{
+  position: relative;
+  top: 51px;
+  z-index: 1004;
 }
 </style>

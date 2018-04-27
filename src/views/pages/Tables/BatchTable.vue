@@ -1,8 +1,8 @@
 <template>
     <div class="app-container">
         <div class="filter-container">
-            <el-button type="primary" v-waves @click="handleAdd">添加</el-button>
-            <el-button type="primary" v-waves @click="hadnleBatchRemove">批量删除</el-button>
+            <el-button type="primary" v-waves @click="handleAdd">{{$t('table.AddTo')}}</el-button>
+            <el-button type="primary" v-waves @click="hadnleBatchRemove">{{$t('table.BatchRemove')}}</el-button>
         </div>
 
         <el-table ref="multipleTable" :data="list" v-loading.body="listLoading" border fit highlight-current-row style="width: 100%" @selection-change="handleSelectionChange">
@@ -12,33 +12,33 @@
             align="center">
             </el-table-column>
 
-            <el-table-column width="180px" align="center" label="创建时间">
-                <template slot-scope="scope">
+            <el-table-column width="180px" align="center" :label="$t('table.Date')">
+              <template slot-scope="scope">
                 <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+              </template>
+            </el-table-column>
+
+            <el-table-column min-width="300px" :label="$t('table.Title')">
+                <template slot-scope="scope">
+                <span class="link-type">{{scope.row.title}}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column min-width="300px" label="标题">
-                <template slot-scope="scope">
-                <span>{{scope.row.title}}</span>
-                </template>
-             </el-table-column>
-
-            <el-table-column width="110px" align="center" label="作者">
+            <el-table-column width="110px" align="center" :label="$t('table.Author')">
                 <template slot-scope="scope">
                 <span>{{scope.row.author}}</span>
                 </template>
             </el-table-column>
 
-            <el-table-column align="center" label="阅读量" width="95">
+            <el-table-column align="center" :label="$t('table.Readings')" width="95">
                 <template slot-scope="scope">
                 <span>{{scope.row.pageviews}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="操作">
+            <el-table-column align="center" :label="$t('table.Operation')">
                 <template slot-scope="scope">
-                  <el-button type="primary" size="mini" v-waves @click="handleEdit(scope.row)">编辑</el-button>
-                  <el-button type="danger" size="mini" v-waves @click="handleRemove(scope.row)">删除</el-button>
+                  <el-button type="primary" size="mini" v-waves @click="handleEdit(scope.row)">{{$t('table.Edit')}}</el-button>
+                  <el-button type="danger" size="mini" v-waves @click="handleRemove(scope.row)">{{$t('table.Remove')}}</el-button>
                 </template>
             </el-table-column>
 

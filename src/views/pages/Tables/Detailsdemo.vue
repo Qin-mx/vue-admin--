@@ -6,23 +6,25 @@
         <div class="formWidth">
               <el-form :model="temp" :rules="rules" ref="ruleForm" :label-width="formLabelWidth" class="demo-ruleForm">
 
-            <el-form-item label="标题" prop="title">
+            <el-form-item :label="$t('table.Title')" prop="title">
               <el-input type="text" v-model="temp.title"></el-input>
             </el-form-item>
 
-            <el-form-item label="作者">
-               <el-input type="text" v-model="temp.author"></el-input>
-            </el-form-item>
+            <el-table-column width="110px" align="center" :label="$t('table.Author')">
+                <template slot-scope="scope">
+                <span>{{scope.row.author}}</span>
+                </template>
+            </el-table-column>
 
-            <el-form-item label="阅读量">
+            <el-form-item :label="$t('table.Readings')">
                  <el-input type="text" v-model="temp.pageviews"></el-input>
             </el-form-item>
 
         </el-form>
         <div class="footer-container">
-          <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">确 定</el-button>
-          <el-button v-else type="primary" @click="updateData">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{$t('table.Sure')}}</el-button>
+          <el-button v-else type="primary" @click="updateData">{{$t('table.Sure')}}</el-button>
+          <el-button @click="cancel">{{$t('table.Cancel')}}</el-button>
         </div>
         </div>
       
@@ -34,11 +36,11 @@ export default {
   name: 'detailsdemo',
   created() {
     if (this.$route.query.id) {
-      this.content = '编辑'
+      this.content = this.$t('table.Edit')
       this.dialogStatus = 'updata'
       this.temp = this.$route.query.obj
     } else {
-      this.content = '添加'
+      this.content = this.$t('table.AddTo')
       this.dialogStatus = 'create'
     }
   },

@@ -4,7 +4,9 @@ export default {
     login: 'login',
     userName: 'userName',
     password: 'password',
-    tip: 'tips: admin || editor The password is greater than 6 bits'
+    tip: 'tips: admin || editor The password is greater than 6 bits',
+    ErrorTips: 'Please enter the correct username',
+    ErrorPassword: 'The password length should not be less than 6 digits'
   },
   routers: {
     dashboard: 'dashboard',
@@ -35,5 +37,44 @@ export default {
     countTo: 'countTo',
     FixedHead: 'FixedHead',
     other: 'other'
+  },
+  permission: {
+    roles: 'roles'
+  },
+  form: {
+    Activityname: 'Activityname',
+    Zoneaction: 'Zoneaction',
+    SelectAction: 'SelectAction',
+    Activitytime: 'Activitytime',
+    SelectionData: 'SelectionData',
+    SelectionTime: 'SelectionTime',
+    Immediate: 'Immediate',
+    Activitynature: 'Activitynature',
+    Resources: 'Resources',
+    Formactivity: 'Formactivity',
+    Creation: 'Creation',
+    Reset: 'Reset',
+    RegionalOne: 'RegionalOne',
+    Regionaltwo: 'Regionaltwo'
+  },
+  table: {
+    Date: 'Date',
+    Title: 'Title',
+    Author: 'Author',
+    Importance: 'Importance',
+    Readings: 'Readings',
+    Status: 'Status',
+    Operation: 'Operation',
+    Search: 'Search',
+    AddTo: 'AddTo',
+    Auditor: 'Auditor',
+    Edit: 'Edit',
+    Release: 'Release',
+    Remove: 'Remove',
+    Draft: 'Draft',
+    SearchTitle: 'Search Title',
+    BatchRemove: 'Batch Remove',
+    Sure: 'Sure',
+    Cancel: 'Cancel'
   }
 }

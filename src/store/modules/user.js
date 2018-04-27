@@ -51,7 +51,7 @@ const user = {
             const data = res.data
             commit('SET_TOKEN', data.token)
             setToken(data.token) // 存到本地
-            resolve()
+            resolve(res)
           })
           .catch(error => {
             reject(error)

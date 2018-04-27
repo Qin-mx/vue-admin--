@@ -5,11 +5,17 @@
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <!-- 面包屑 -->
     <breadcrumb></breadcrumb>
-    <lang-select class="lang-container"></lang-select>
+    <el-tooltip content="lang" placement="bottom">
+      <lang-select class="lang-container"></lang-select>
+    </el-tooltip>
     <!-- 全屏 -->
-    <Screenfull class="screenfull"></Screenfull>
+    <el-tooltip content="Screenfull" placement="bottom">
+      <Screenfull class="screenfull"></Screenfull>
+     </el-tooltip>
     <!-- 颜色 -->
-    <ThemePicker class="theme-picker"></ThemePicker>
+    <el-tooltip content="picker" placement="bottom">
+      <ThemePicker class="theme-picker"></ThemePicker>
+    </el-tooltip>
     <!-- 头像 -->
     <TopNavBar></TopNavBar>
   </el-menu>
